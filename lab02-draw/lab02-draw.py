@@ -54,6 +54,18 @@ arcade.draw_polygon_filled([[400, 480],
                             [380, 455]],
                             arcade.color.GOLD)
 
+#Nube
+arcade.draw_circle_filled(110, 500, 50, arcade.color.LIGHT_GRAY)
+arcade.draw_circle_filled(180, 470, 50, arcade.color.LIGHT_GRAY)
+arcade.draw_circle_filled(170, 535, 50, arcade.color.LIGHT_GRAY)
+arcade.draw_circle_filled(210, 530, 50, arcade.color.LIGHT_GRAY)
+arcade.draw_circle_filled(250, 490, 50, arcade.color.LIGHT_GRAY)
+
+
+
+
+
+
 arcade.finish_render()
 
 arcade.run()
