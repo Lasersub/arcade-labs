@@ -61,6 +61,27 @@ arcade.draw_circle_filled(170, 535, 50, arcade.color.LIGHT_GRAY)
 arcade.draw_circle_filled(210, 530, 50, arcade.color.LIGHT_GRAY)
 arcade.draw_circle_filled(250, 490, 50, arcade.color.LIGHT_GRAY)
 
+#Casa del fondo
+#PARED
+arcade.draw_lrtb_rectangle_filled(50, 150, 200, 100, arcade.color.GRAY_BLUE)
+
+#TEJADO
+arcade.draw_triangle_filled(40, 200, 160, 200, 100, 250, arcade.color.LIGHT_RED_OCHRE)
+
+#PUERTA
+arcade.draw_lrtb_rectangle_filled(85, 115, 140, 100, arcade.color.DARK_BROWN)
+arcade.draw_circle_filled(105, 118, 5, arcade.color.BLACK)
+
+#VENTANA1
+arcade.draw_lrtb_rectangle_filled(60, 95, 190, 155, arcade.color.BONE)
+arcade.draw_lrtb_rectangle_filled(65, 90, 185, 160, arcade.color.BLACK)
+
+#VENTANA2
+arcade.draw_lrtb_rectangle_filled(105, 140, 190, 155, arcade.color.BONE)
+arcade.draw_lrtb_rectangle_filled(110, 135, 185, 160, arcade.color.BLACK)
+
+
+
 
 
 
