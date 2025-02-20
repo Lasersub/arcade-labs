@@ -63,13 +63,13 @@ def sol():
     arcade.draw_circle_filled(750, 550, 200, arcade.color.YELLOW)
 
 
-def nube():
+def nube(x, y):
     """Nube"""
-    arcade.draw_circle_filled(110, 500, 50, arcade.color.LIGHT_GRAY)
-    arcade.draw_circle_filled(180, 470, 50, arcade.color.LIGHT_GRAY)
-    arcade.draw_circle_filled(170, 535, 50, arcade.color.LIGHT_GRAY)
-    arcade.draw_circle_filled(210, 530, 50, arcade.color.LIGHT_GRAY)
-    arcade.draw_circle_filled(250, 490, 50, arcade.color.LIGHT_GRAY)
+    arcade.draw_circle_filled(110 + x, 500 + y, 50, arcade.color.LIGHT_GRAY)
+    arcade.draw_circle_filled(180 + x, 470 + y, 50, arcade.color.LIGHT_GRAY)
+    arcade.draw_circle_filled(170 + x, 535 + y, 50, arcade.color.LIGHT_GRAY)
+    arcade.draw_circle_filled(210 + x, 530 + y, 50, arcade.color.LIGHT_GRAY)
+    arcade.draw_circle_filled(250 + x, 490 + y, 50, arcade.color.LIGHT_GRAY)
 
 
 def draw_main():
@@ -99,21 +99,33 @@ def casa():
     ventanas_casa()
 
 
-def main():
+def on_draw(delta_time):
     """Genera el dibujo principal"""
-    arcade.open_window(800, 600, "PRIMER DIBUJO")
-    arcade.set_background_color(arcade.color.BLUE)
     arcade.start_render()
 
     cesped()
     sol()
-    nube()
+    nube(on_draw.nube1_x, 60)
+    nube(on_draw.nube2_x, 20)
     arbol()
     casa()
 
-    arcade.finish_render()
-    arcade.run()
+    on_draw.nube1_x += 2
+    on_draw.nube2_x += 1
 
+
+on_draw.nube1_x = 100
+on_draw.nube2_x = -100
+
+
+def main():
+    """Programa principal"""
+    arcade.open_window(800, 600, "PRIMER DIBUJO")
+    arcade.set_background_color(arcade.color.BLUE)
+
+    arcade.schedule(on_draw, 1/60)
+
+    arcade.run()
 
 #CODIGO PRINCIPAL
 main()
