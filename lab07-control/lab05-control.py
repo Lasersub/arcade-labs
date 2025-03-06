@@ -4,8 +4,8 @@ import arcade
 # --- Constants ---
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-MOVEMENT_SPEED = 3
-
+MOVEMENT_SPEED = 10
+DEAD_ZONE = 0.02
 
 
 # DRAWINGS
@@ -122,6 +122,17 @@ class MyGame(arcade.Window):
         self.cloud = Cloud(50, 50, 0, 0, 50, arcade.color.LIGHT_GRAY)
 
 
+        # If we have a game controller plugged in, grab it and
+        # make an instance variable out of it.
+        joysticks = arcade.get_joysticks()
+        if joysticks:
+            self.joystick = joysticks[0]
+            self.joystick.open()
+        else:
+            print("There are no joysticks.")
+            self.joystick = None
+
+
     def on_draw(self):
         self.clear()
         grass()
@@ -129,9 +140,25 @@ class MyGame(arcade.Window):
         self.cloud.draw()
 
     def on_update(self, delta_time):
+
+        # GAME CONTROLLER
+        # Update the position according to the game controller
+        if self.joystick:
+            print(self.joystick.x, self.joystick.y)
+
+            # Set a "dead zone" to prevent drive from a centered joystick
+            if abs(self.joystick.x) < DEAD_ZONE:
+                self.cloud.change_x = 0
+            else:
+                self.cloud.change_x = self.joystick.x * MOVEMENT_SPEED
+
+            # Set a "dead zone" to prevent drive from a centered joystick
+            if abs(self.joystick.y) < DEAD_ZONE:
+                self.cloud.change_y = 0
+            else:
+                self.cloud.change_y = -self.joystick.y * MOVEMENT_SPEED
+
         self.cloud.on_update()
-
-
 
     # MOUSE
     def on_mouse_motion(self, x, y, dx, dy):
@@ -148,6 +175,8 @@ class MyGame(arcade.Window):
         elif button == arcade.MOUSE_BUTTON_RIGHT:
             print("Right mouse button pressed at", x, y)
 
+
+
     # KEYBOARD
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
@@ -155,7 +184,7 @@ class MyGame(arcade.Window):
         elif key == arcade.key.RIGHT:
             print("Right key hit")
 
-    def on_key_press(self, key, modifiers):
+    def on_key_released(self, key, modifiers):
         """ Called whenever the user presses a key. """
         if key == arcade.key.LEFT:
             self.cloud.change_x = -MOVEMENT_SPEED
@@ -172,6 +201,8 @@ class MyGame(arcade.Window):
             self.cloud.change_x = 0
         elif key == arcade.key.UP or key == arcade.key.DOWN:
             self.cloud.change_y = 0
+
+
 
 def main():
     window = MyGame()
